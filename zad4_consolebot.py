@@ -1,6 +1,3 @@
-import sys
-
-contacts = []
 def add_contact(name: str, num: int)->str:
     for contact in contacts:
         if contact["number"] == num:
@@ -50,16 +47,17 @@ def run_command(p:str,args:list[str]) -> str:
 
 def main():
     print("Welcome to the assistant bot!")
+    contacts = []
     while True:
         user_input = input("Enter a command: ")
         p, *args = user_input.split()
         p = p.strip().lower()
         if p == "exit" or p == "close":
             print("Goodbye")
-            sys.exit()
+            return
         elif p == "hello":
             print("How can I help you?")
-        elif p == "add" or p == "change" or p == "phone":
+        elif p in ("add", "change", "phone"):
                 print(run_command(p, args))
         elif p == "all":
             print(show_all())
@@ -70,3 +68,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
