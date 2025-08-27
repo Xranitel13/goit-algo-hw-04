@@ -1,4 +1,4 @@
-def add_contact(name: str, num: int)->str:
+def add_contact(contacts:list,name: str, num: int)->str:
     for contact in contacts:
         if contact["number"] == num:
             return f"Contact with phone [{contact['number']}] already exists ( {contact['name']} )"
@@ -9,7 +9,7 @@ def add_contact(name: str, num: int)->str:
     contacts.append({"name": name, "number": num})
     return f"Contact [{name}] added successfully with number:{num} "
 
-def change_contact(name: str, num: int) -> str:
+def change_contact(contacts:list,name: str, num: int) -> str:
     for contact in contacts:
         if contact["name"] == name:
             contact["number"] = num
@@ -17,30 +17,30 @@ def change_contact(name: str, num: int) -> str:
 
     return f"Contact [{name}] does not exist"
 
-def show_phone(name:str) -> str:
+def show_phone(contacts:list,name:str) -> str:
     for contact in contacts:
         if contact["name"] == name:
             return f"[{name}] number is {contact["number"]}"
 
     return f"Contact [{name}] does not exist"
 
-def show_all():
+def show_all(contacts:list):
     text = "---name----|---number---\n"
     for contact in contacts:
         t = f"{contact["name"]}   :   {contact["number"]}\n"
         text = text + t
     return text
 
-def run_command(p:str,args:list[str]) -> str:
+def run_command(contacts:list,p:str,args:list[str]) -> str:
     if not args:
         return "Arguments wasn't find"
 
     if p == "add" and len(args) > 1 and args[1].isdigit():
-        return add_contact(args[0], int(args[1]))
+        return add_contact(contacts,args[0], int(args[1]))
     elif p == "change" and len(args) > 1 and args[1].isdigit():
-        return change_contact(args[0], int(args[1]))
+        return change_contact(contacts,args[0], int(args[1]))
     elif p == "phone":
-        return show_phone(args[0])
+        return show_phone(contacts,args[0])
     else:
         return "Wrong arguments of command"
 
@@ -58,9 +58,9 @@ def main():
         elif p == "hello":
             print("How can I help you?")
         elif p in ("add", "change", "phone"):
-                print(run_command(p, args))
+                print(run_command(contacts, p, args))
         elif p == "all":
-            print(show_all())
+            print(show_all(contacts))
         else:
             print("Invalid command")
 
@@ -68,4 +68,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
